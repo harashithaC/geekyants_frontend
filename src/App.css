@@ -1,0 +1,28 @@
+.app,
+.content {
+    height: 100Vh;
+    width: 100%;
+    overflow-y: scroll;
+    /* background-color: #F4F6FF; */
+}
+
+.content {
+    background-color: #dff6fb;
+}
+
+.app {
+    overflow: hidden;
+    display: flex;
+}
+
+.upload_image {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px red solid; */
+}
+
+.pointer {
+    cursor: pointer;
+}
