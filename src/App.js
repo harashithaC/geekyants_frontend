@@ -1,26 +1,30 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRouter';
 
-const LoginComponent = lazy(() => import("./components/login/Login"));
 
-const App = () => {
+const LoginComponent = lazy(() => import('./components/Login'));
+const ManagerDashboardPage = lazy(() => import('./pages/ManagerDashboard'));
+const EngineerDashboardPage = lazy(() => import('./components/EngineerDashboard'));
+
+function App() {
   return (
-    <div className="app">
-      <main className="content">
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route
-            path="/login"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <LoginComponent />
-              </Suspense>
-            }
-          />
-        </Routes>
-      </main>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/login" element={<LoginComponent />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        <Route
+          path="/manager/dashboard"
+          element={<PrivateRoute allowedRoles={['manager']} element={<ManagerDashboardPage />} />}
+        />
+        <Route
+          path="/engineer/dashboard"
+          element={<PrivateRoute allowedRoles={['engineer']} element={<EngineerDashboardPage />} />}
+        />
+      </Routes>
+    </Suspense>
   );
-};
+}
 
 export default App;
