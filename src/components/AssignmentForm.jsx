@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { createAssignment } from '../utils/api';
+import React, { useEffect, useState } from 'react';
+import { createAssignment, getEngineers, getProjects } from '../utils/api';
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Typography, Paper } from '@mui/material';
 
 export default function AssignmentForm({ projects }) {
@@ -18,13 +18,31 @@ export default function AssignmentForm({ projects }) {
       alert("Error creating assignment");
     }
   };
+  const [engineers, setEngineers] = useState([]);
+  console.log("engineers===>", engineers)
+  const [allProjects, setAllProjects] = useState([]);
+  console.log("allProjects===>",allProjects)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const engineersData = await getEngineers();
+        setEngineers(engineersData);
 
+        const projectsData = await getProjects();
+        setAllProjects(projectsData);
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <Paper sx={{ padding: 3, marginBottom: 3 }}>
       <Typography variant="h6">Create Assignment</Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 6, md: 3 }}>
             <FormControl fullWidth>
               <InputLabel>Engineer</InputLabel>
               <Select
@@ -33,14 +51,20 @@ export default function AssignmentForm({ projects }) {
                 label="Engineer"
                 required
               >
-                {/* Replace with actual engineers list */}
-                <MenuItem value={1}>John Doe</MenuItem>
-                <MenuItem value={2}>Jane Smith</MenuItem>
+                {engineers.length > 0 ? (
+                  engineers.map((engineer) => (
+                    <MenuItem key={engineer.id} value={engineer.id}>
+                      {engineer.name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem disabled>No engineers available</MenuItem>
+                )}
               </Select>
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item size={{ xs: 6, md: 3 }}>
             <FormControl fullWidth>
               <InputLabel>Project</InputLabel>
               <Select
@@ -49,7 +73,7 @@ export default function AssignmentForm({ projects }) {
                 label="Project"
                 required
               >
-                {projects.map((project) => (
+                {allProjects.map((project) => (
                   <MenuItem key={project.id} value={project.id}>
                     {project.name}
                   </MenuItem>
@@ -58,7 +82,7 @@ export default function AssignmentForm({ projects }) {
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item >
             <TextField
               label="Allocation Percentage"
               type="number"

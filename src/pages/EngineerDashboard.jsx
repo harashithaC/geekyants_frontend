@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getEngineerAssignments, getEngineerCapacity, getEngineerProfile } from '../utils/api';
+import { getEngineerAssignments, getEngineerCapacity, getEngineerProfile, getProfile } from '../utils/api';
 import { Box, Grid, Card, Typography, LinearProgress, Paper } from '@mui/material';
 import HeaderComponent from '../utils/HeaderComponent';
 
@@ -7,9 +7,9 @@ export default function EngineerDashboardPage() {
   const [assignments, setAssignments] = useState([]);
   const [capacity, setCapacity] = useState(0);
   const [engineerInfo, setEngineerInfo] = useState({ name: '', skills: [], seniority: '', availableCapacity: 0 });
+  console.log("engineerInfo===>",engineerInfo)
 
-  const engineerId = localStorage.getItem('userId'); // Get engineer's ID from localStorage
-
+  const engineerId = localStorage.getItem('userId'); 
   useEffect(() => {
     const fetchAssignmentsAndCapacity = async () => {
       try {
@@ -19,7 +19,7 @@ export default function EngineerDashboardPage() {
         const capacityData = await getEngineerCapacity(engineerId);
         setCapacity(capacityData.current_capacity);
 
-        const engineerData = await getEngineerProfile(engineerId);
+        const engineerData = await getProfile();
         setEngineerInfo(engineerData);
       } catch (error) {
         console.error('Error fetching assignments or capacity', error);

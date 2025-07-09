@@ -4,20 +4,25 @@ import axios from 'axios';
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:5000/api', // Backend URL
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('management')}`, // JWT token from localStorage
+    'Authorization': `Bearer ${localStorage.getItem('token')}`, // JWT token from localStorage
     'Content-Type': 'application/json',
   },
 });
-
+const token = localStorage.getItem('token')
+console.log("token===>",token)
 // Fetch engineers list
 export const getEngineers = async () => {
   const response = await axiosInstance.get('/engineers');
   return response.data;
 };
-
+//fetch profile
+export const getProfile = async () => {
+  const response = await axiosInstance.get('/auth/profile');
+  return response.data;
+};
 // Fetch a specific engineer's assignments
 export const getEngineerAssignments = async (engineerId) => {
-  const response = await axiosInstance.get(`/assignments`);
+  const response = await axiosInstance.get(`/assignments/${engineerId}`);
   return response.data;
 };
 

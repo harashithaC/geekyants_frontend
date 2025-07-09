@@ -38,7 +38,7 @@ export default function Login() {
   };
 
   return (
-    <Grid container sx={{ height: '80vh',display:"flex",flexDirection:"column",justifyContent:"center" }}>
+    <Grid container sx={{ height: '80vh',display:"flex",flexDirection:"column",justifyContent:"center",alignItems:'center',mt:5 }}>
       <Grid size={{xs:12,sm:8,md:5}}
         component={Paper}
         elevation={6}

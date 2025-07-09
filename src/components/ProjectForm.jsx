@@ -5,6 +5,7 @@ import { createProject } from '../utils/api'; // API function to create a projec
 export default function ProjectForm() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [status,setStatus] = useState('')
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [skills, setSkills] = useState([]);
@@ -23,6 +24,7 @@ export default function ProjectForm() {
       start_date: startDate,
       end_date: endDate,
       required_skills: skills,
+      status:status,
     };
 
     try {
@@ -60,6 +62,16 @@ export default function ProjectForm() {
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
+              label="Status Of Project"
+              variant="outlined"
+              fullWidth
+              required
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
               label="Start Date"
               type="date"
               variant="outlined"
@@ -86,7 +98,7 @@ export default function ProjectForm() {
               }}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{xs:3}}>
             <FormControl fullWidth>
               <InputLabel>Required Skills</InputLabel>
               <Select
