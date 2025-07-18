@@ -24,7 +24,7 @@ export default function ProjectForm() {
       start_date: startDate,
       end_date: endDate,
       required_skills: skills,
-      status:status,
+      manager_id:4,
     };
 
     try {
@@ -34,7 +34,20 @@ export default function ProjectForm() {
       alert('Error creating project');
     }
   };
+  const today = new Date().toISOString().split("T")[0];
+  console.log("today===>",today)
+  
 
+  const parseDate = (input) => {
+    const [month,day,year] = input.split("/")
+    return new Date(`${year}-${month}-${day}`)
+  }
+  
+const handleChange = (e) => {
+  const inputDates = e.target.value;
+  const selected = parseDate
+}
+ 
   return (
     <Box sx={{ padding: 3, marginBottom: 3 }}>
       <Typography variant="h6">Create New Project</Typography>
@@ -60,7 +73,7 @@ export default function ProjectForm() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <TextField
               label="Status Of Project"
               variant="outlined"
@@ -69,7 +82,7 @@ export default function ProjectForm() {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6}>
             <TextField
               label="Start Date"
@@ -81,6 +94,9 @@ export default function ProjectForm() {
               onChange={(e) => setStartDate(e.target.value)}
               InputLabelProps={{
                 shrink: true,
+              }}
+              InputProps={{
+                min:today,
               }}
             />
           </Grid>

@@ -4,7 +4,7 @@ import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Typ
 
 export default function AssignmentForm({ projects }) {
   const [engineerId, setEngineerId] = useState('');
-  const [projectId, setProjectId] = useState('');
+  const [projectId, setProjectId] = useState();
   const [allocationPercentage, setAllocationPercentage] = useState(50);
 
   const handleSubmit = async (e) => {
@@ -64,7 +64,7 @@ export default function AssignmentForm({ projects }) {
             </FormControl>
           </Grid>
 
-          <Grid item size={{ xs: 6, md: 3 }}>
+          {/* <Grid item size={{ xs: 6, md: 3 }}>
             <FormControl fullWidth>
               <InputLabel>Project</InputLabel>
               <Select
@@ -80,7 +80,7 @@ export default function AssignmentForm({ projects }) {
                 ))}
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
           <Grid item >
             <TextField

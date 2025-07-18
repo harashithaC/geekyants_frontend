@@ -2,14 +2,14 @@ import axios from 'axios';
 
 // Create Axios instance for API requests
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api', // Backend URL
+  baseURL: 'http://20.197.34.224:5000/api', // Backend URL
   headers: {
     'Authorization': `Bearer ${localStorage.getItem('token')}`, // JWT token from localStorage
     'Content-Type': 'application/json',
   },
 });
-const token = localStorage.getItem('token')
-console.log("token===>",token)
+// const token = localStorage.getItem('token')
+// console.log("token===>",token)
 // Fetch engineers list
 export const getEngineers = async () => {
   const response = await axiosInstance.get('/engineers');
@@ -31,7 +31,12 @@ export const getEngineerCapacity = async (engineerId) => {
   const response = await axiosInstance.get(`/engineers/${engineerId}/capacity`);
   return response.data;
 };
-
+//fetch all assignments
+// Fetch specific engineer's capacity
+export const getAssignments = async () => {
+  const response = await axiosInstance.get(`/assignments`);
+  return response.data;
+};
 // Fetch all projects
 export const getProjects = async () => {
   const response = await axiosInstance.get('/projects');

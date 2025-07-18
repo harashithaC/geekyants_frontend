@@ -13,11 +13,11 @@ export default function EngineerDashboardPage() {
   useEffect(() => {
     const fetchAssignmentsAndCapacity = async () => {
       try {
-        const assignmentsData = await getEngineerAssignments(engineerId);
-        setAssignments(assignmentsData);
+        // const assignmentsData = await getEngineerAssignments(engineerId);
+        // setAssignments(assignmentsData);
 
-        const capacityData = await getEngineerCapacity(engineerId);
-        setCapacity(capacityData.current_capacity);
+        // const capacityData = await getEngineerCapacity(engineerId);
+        // setCapacity(capacityData.current_capacity);
 
         const engineerData = await getProfile();
         setEngineerInfo(engineerData);
@@ -37,7 +37,7 @@ export default function EngineerDashboardPage() {
 
       {/* Engineer Profile */}
       <Paper sx={{ padding: 3, marginBottom: 3 }}>
-        <Typography variant="h6">Engineer Profile</Typography>
+        <Typography variant="h6">Engineer Profileeeeeeeee</Typography>
         <Typography variant="body1"><strong>Name:</strong> {engineerInfo.name}</Typography>
         <Typography variant="body1"><strong>Seniority:</strong> {engineerInfo.seniority}</Typography>
         <Typography variant="body1"><strong>Skills:</strong> {engineerInfo.skills.join(', ')}</Typography>
