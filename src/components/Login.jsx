@@ -16,7 +16,7 @@ export default function Login() {
 
     try {
       // API call to authenticate user
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('http://20.197.34.224:5000/api/auth/login', {
         email,
         password,
       });
