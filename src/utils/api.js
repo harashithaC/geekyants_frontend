@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create Axios instance for API requests
 const axiosInstance = axios.create({
-  baseURL: 'http://20.197.34.224:5000/api', // Backend URL
+  baseURL: 'https://geeky.bridgebrilliance.com/api', // Backend URL
   headers: {
     'Authorization': `Bearer ${localStorage.getItem('token')}`, // JWT token from localStorage
     'Content-Type': 'application/json',

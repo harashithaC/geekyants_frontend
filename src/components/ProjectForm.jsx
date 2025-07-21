@@ -5,12 +5,10 @@ import { createProject } from '../utils/api'; // API function to create a projec
 export default function ProjectForm() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [status,setStatus] = useState('')
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [skills, setSkills] = useState([]);
   const [availableSkills] = useState(['React', 'Node.js', 'Python', 'JavaScript', 'Java', 'Go', 'Ruby']); // List of skills
-
   const handleSkillChange = (event) => {
     const { value } = event.target;
     setSkills(value);
@@ -24,7 +22,7 @@ export default function ProjectForm() {
       start_date: startDate,
       end_date: endDate,
       required_skills: skills,
-      manager_id:4,
+      manager_id: 4,
     };
 
     try {
@@ -35,19 +33,26 @@ export default function ProjectForm() {
     }
   };
   const today = new Date().toISOString().split("T")[0];
-  console.log("today===>",today)
-  
+  console.log("today===>", today)
+  const handleStartDateChange = (e) => {
+    const selectedDate = e.target.value;
 
-  const parseDate = (input) => {
-    const [month,day,year] = input.split("/")
-    return new Date(`${year}-${month}-${day}`)
-  }
-  
-const handleChange = (e) => {
-  const inputDates = e.target.value;
-  const selected = parseDate
-}
- 
+    if (selectedDate < today) {
+      alert("Start date cannot be in the past.");
+      return;
+    }
+
+    setStartDate(selectedDate);
+  };
+  const handleEndDateChange = (e) => {
+    const selectedDate = e.target.value;
+
+    if (selectedDate < today) {
+      alert("End date cannot be in the past.");
+      return;
+    }
+    setEndDate(selectedDate)
+  };
   return (
     <Box sx={{ padding: 3, marginBottom: 3 }}>
       <Typography variant="h6">Create New Project</Typography>
@@ -91,12 +96,13 @@ const handleChange = (e) => {
               fullWidth
               required
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              // onChange={(e) => setStartDate(e.target.value)}
+              onChange={handleStartDateChange}
               InputLabelProps={{
                 shrink: true,
               }}
               InputProps={{
-                min:today,
+                min: today,
               }}
             />
           </Grid>
@@ -108,13 +114,17 @@ const handleChange = (e) => {
               fullWidth
               required
               value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              // onChange={(e) => setEndDate(e.target.value)}
+              onChange={handleEndDateChange}
               InputLabelProps={{
                 shrink: true,
               }}
+               InputProps={{
+                min: today,
+              }}
             />
           </Grid>
-          <Grid size={{xs:3}}>
+          <Grid size={{ xs: 3 }}>
             <FormControl fullWidth>
               <InputLabel>Required Skills</InputLabel>
               <Select
